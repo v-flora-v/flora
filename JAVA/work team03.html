@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles del Usuario</title>
+</head>
+<body>
+    <div id="detallesUsuario"></div>
+
+    <script>
+        // Crear un array de objetos llamado 'team'
+        var team = [
+            {
+                id: 1,
+                nombre: "liseth ali",
+                email: "liseth@example.com",
+                cargo: "developer",
+                sueldo: 60000
+            },
+            {
+                id: 2,
+                nombre: "saul williams",
+                email: "saul@example.com",
+                cargo: "UI designer",
+                sueldo: 55000
+            },
+            {
+                id: 3,
+                nombre: "Maria Rodriguez",
+                email: "maria@example.com",
+                cargo: "content manager",
+                sueldo: 50000
+            },
+            {
+                id: 4,
+                nombre: "kewin omar",
+                email: "kewin@example.com",
+                cargo: "backend engineer",
+                sueldo: 65000
+            },
+            {
+                id: 5,
+                nombre: "yhina flores",
+                email: "yhina@example.com",
+                cargo: "developer",
+                sueldo: 56000
+            }
+        ];
+
+        // Nombre del usuario que deseas buscar
+        var nombreBuscado = "liseth ali";
+
+        // Buscar el usuario por nombre
+        var usuarioEncontrado = team.find(function(persona) {
+            return persona.nombre === nombreBuscado;
+        });
+
+        // Mostrar los detalles del usuario
+        var detallesUsuario = document.getElementById("detallesUsuario");
+
+        if (usuarioEncontrado) {
+            var detallesHTML = "Nombre: " + usuarioEncontrado.nombre + "<br>";
+            detallesHTML += "Email: " + usuarioEncontrado.email + "<br>";
+            detallesHTML += "Cargo: " + usuarioEncontrado.cargo + "<br>";
+            detallesHTML += "Sueldo: " + usuarioEncontrado.sueldo + "<br>";
+
+            detallesUsuario.innerHTML = detallesHTML;
+        } else {
+            detallesUsuario.innerHTML = "Usuario no encontrado.";
+        }
+    </script>
+</body>
+</html>

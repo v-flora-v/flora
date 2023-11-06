@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function construirGrafo(bordes) {
+    let grafo = Object.create(null);
+    function añadirBorde(desde, hasta) {
+    if (grafo[desde] == null) {
+    grafo[desde] = [hasta];
+    } else {
+    grafo[desde].push(hasta);
+    }
+    }
+    for (let [desde, hasta] of bordes.map(c => c.split("-"))) {
+    añadirBorde(desde, hasta);
+    añadirBorde(hasta, desde);
+    }
+    return grafo;
+    }
+    const grafoCamino = construirGrafo(roads);
+
+</script>
+</body>
+</html>

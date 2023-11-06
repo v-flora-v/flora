@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Declaracion del array con los nombres de los compañeros
+        var companeros = ["Mercedes", "Veronica", "Lizeth", "Alex", "Saul", "Cristian"];
+
+        // Funcion para imprimir un saludo a cada compañero
+        function saludarCompaneros() {
+            var resultado = document.getElementById("resultado");
+            resultado.innerHTML = "";  // Limpiar resultados anteriores
+
+            for (var i = 0; i < companeros.length; i++) {
+                var nombre = companeros[i];
+                var saludo = "Hola, " + nombre + "!";
+                var parrafo = document.createElement("p");
+                parrafo.textContent = saludo;
+                resultado.appendChild(parrafo);
+            }
+        }
+    </script>
+
+    <button onclick="saludarCompaneros()">Saludar a Compañeros</button>
+    <div id="resultado"></div>
+</body>
+</html>
+

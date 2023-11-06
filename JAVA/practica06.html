@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bucle While con Condicion</title>
+</head>
+<body>
+    <h1>Valores del bucle While con Condicion</h1>
+    <ul id="resultados"></ul>
+
+    <script>
+        var valor = 2;
+
+        while (valor <= 18) {
+            var listItem = document.createElement("li");
+            listItem.textContent = "El bucle tiene el valor de: " + valor;
+            document.getElementById("resultados").appendChild(listItem);
+            valor += 4; 
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="clasificacion" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var clasificacion = ["Ana", "Oswaldo", "Raul", "Celia", "Maria", "Antonio "];
+         
+        document.write("Clasificacion actual" + "<br>"); 
+        mostrarClasificacion();  
+         
+        clasificacion[2] = "Celia";
+        clasificacion[3] = "Raul";
+        clasificacion.pop();
+        clasificacion.splice(1, 0, "Roberto", "Amaya");
+        clasificacion.unshift("Marta");
+         
+        document.write("<br>"); 
+        document.write("Clasificacion actualizada" + "<br>"); 
+        mostrarClasificacion(); 
+         
+        //declaramos la funcion
+        function mostrarClasificacion() {
+            for (var i = 0; i < clasificacion.length; i++) {
+            document.write(i+1 + ". " + clasificacion[i] + "<br>");
+            }
+        }
+        </script>
+</body>
+</html>

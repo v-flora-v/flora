@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRACTICA ROBOT</title>
+</head>
+<body>
+    <h1>ROBOT</h1>
+    <script>
+//ESTE ES EL CODIGO QUE CREA EL MAPA Y EL ROBOT QUE SE MUEVE EN EL
+(function() {
+    "use strict";
+  
+    let active = null;
+  
+    const places = {
+      "La casa de Alicia": { x: 279, y: 100 },
+      "La casa de Bob": { x: 295, y: 203 },
+      Cabin: { x: 372, y: 67 },
+      "La casa de Daria": { x: 183, y: 285 },
+      "La casa de Ernie": { x: 50, y: 283 },
+      Farm: { x: 36, y: 118 },
+      "La casa de Greta": { x: 35, y: 187 },
+      Marketplace: { x: 162, y: 110 },
+      "Oficina de correos": { x: 205, y: 57 },
+      Shop: { x: 137, y: 212 },
+      "Ayuntamiento": { x: 202, y: 213 }
+    };
+    const placeKeys = Object.keys(places);
+  
+    const speed = 2;
+  
+    class Animation {
+      constructor(worldState, robot, robotState) {
+        this.worldState = worldState;
+        this.robot = robot;
+        this.robotState = robotState;
+        this.doblar = 0;
+  
+        let outer = window.__sandbox
+            ? window.__sandbox.output.div
+            : document.body,
+          doc = outer.ownerDocument;
+        this.node = outer.appendChild(doc.createElement("div"));
+        this.node.style.cssText =
+          "position: relative; line-height: 0.1; margin-left: 10px";
+        this.map = this.node.appendChild(doc.createElement("img"));
+        this.map.src = "village2x.png";
+        this.map.style.cssText = "vertical-align: -8px";
+        this.robotElt = this.node.appendChild(doc.createElement("div"));
+        this.robotElt.style.cssText = `position: absolute; transition: left ${0.8 /
+          speed}s, top ${0.8 / speed}s;`;
+        let robotPic = this.robotElt.appendChild(doc.createElement("img"));
+        robotPic.src = "robot_moving2x.gif";
+        this.parcels = [];
+  
+        this.text = this.node.appendChild(doc.createElement("span"));
+        this.button = this.node.appendChild(doc.createElement("button"));
+        this.button.style.cssText =
+          "color: white; background: #28b; border: none; border-radius: 2px; padding: 2px 5px; line-height: 1.1; font-family: sans-serif; font-size: 80%";
+        this.button.textContent = "detener";
+  
+        this.button.addEventListener("click", () => this.clicked());
+        this.schedule();
+  
+        this.updateView();
+        this.updateParcels();
+  
+        this.robotElt.addEventListener("transitionend", () =>
+          this.updateParcels()
+        );
+      }
+  
+      updateView() {
+        let pos = places[this.worldState.place];
+        this.robotElt.style.top = pos.y - 38 + "px";
+        this.robotElt.style.left = pos.x - 16 + "px";
+  
+        this.text.textContent = ` doblar ${this.doblar} `;
+      }
+  
+      updateParcels() {
+        while (this.parcels.length) this.parcels.pop().remove();
+        let heights = {};
+        for (let { place, address } of this.worldState.parcels) {
+          let height = heights[place] || (heights[place] = 0);
+          heights[place] += 14;
+          let node = document.createElement("div");
+          let offset = placeKeys.indexOf(address) * 16;
+          node.style.cssText =
+            "position: absolute; height: 16px; width: 16px; background-image: url(http://eloquentjavascript.net/img/parcel2x.png); background-position: 0 -" +
+            offset +
+            "px";
+          if (place == this.worldState.place) {
+            node.style.left = "25px";
+            node.style.bottom = 20 + height + "px";
+            this.robotElt.appendChild(node);
+          } else {
+            let pos = places[place];
+            node.style.left = pos.x - 5 + "px";
+            node.style.top = pos.y - 10 - height + "px";
+            this.node.appendChild(node);
+          }
+          this.parcels.push(node);
+        }
+      }
+  
+      tick() {
+        let { direction, memory } = this.robot(this.worldState, this.robotState);
+        this.worldState = this.worldState.move(direction);
+        this.robotState = memory;
+        this.doblar++;
+        this.updateView();
+        if (this.worldState.parcels.length == 0) {
+          this.button.remove();
+          this.text.textContent = `Terminado despues de ${this.doblar} vueltas`;
+          this.robotElt.firstChild.src =
+            "http://eloquentjavascript.net/img/robot_idle2x.png";
+        } else {
+          this.schedule();
+        }
+      }
+  
+      schedule() {
+        this.timeout = setTimeout(() => this.tick(), 1000 / speed);
+      }
+  
+      clicked() {
+        if (this.timeout == null) {
+          this.schedule();
+          this.button.textContent = "detener";
+          this.robotElt.firstChild.src =
+            "http://eloquentjavascript.net/img/robot_moving2x.gif";
+        } else {
+          clearTimeout(this.timeout);
+          this.timeout = null;
+          this.button.textContent = "comenzar";
+          this.robotElt.firstChild.src =
+            "http://eloquentjavascript.net/img/robot_idle2x.png";
+        }
+      }
+    }
+  
+    window.runRobotAnimation = function(worldState, robot, robotState) {
+      if (active && active.timeout != null) clearTimeout(active.timeout);
+      active = new Animation(worldState, robot, robotState);
+    };
+  })();
+  
+  //FIN DEL MAPA VISUAL Y CODIGO ROBOT
+  
+  
+  // ESTAS SON LAS VARIABLES Y FUNCIONES DADA EN EL CAPITULO (con mis explicaciones)
+
+var roads = [
+    "La casa de Alicia-La casa de Bob",
+    "La casa de Alicia-Cabin",
+    "La casa de Alicia-Oficina de correos",
+    "La casa de Bob-Ayuntamiento",
+    "La casa de Daria-La casa de Ernie",
+    "La casa de Daria-Ayuntamiento",
+    "La casa de Ernie-La casa de Greta",
+    "La casa de Greta-Farm",
+    "La casa de Greta-Shop",
+    "Marketplace-Farm",
+    "Marketplace-Oficina de correos",
+    "Marketplace-Shop",
+    "Marketplace-Ayuntamiento",
+    "Shop-Ayuntamiento"
+  ];
+  
+  function buildGraph(edges) {            //La entrada de bordes es la variable de carreteras arriba.
+    let graph = Object.create(null);      //objeto vacio sin propiedades heredadas a diferencia de {} que hereda Object.prototype
+    function addEdge(from, to) {        //desde y hacia tomados de var carreteras son entradas (ver el bucle a continuacion)
+      if (graph[from] == null) {        //si el grafico no tiene la propiedad "desde", crea la propiedad "hasta"
+        graph[from] = [to]; 
+      } else {                        //si el grafico tiene la propiedad "desde", empuja "hasta"
+        graph[from].push(to);
+      }
+    }
+    for (let [from, to] of edges.map(r => r.split("-"))) { //usa .map para crear una matriz y .split para separar el formato "Inicio-Fin" en [desde, hasta] e itera a traves de la variable de carreteras
+      addEdge(from, to);             //ejecuta funciones addEdge con parametros cambiados para iterar a traves de cada conexion
+      addEdge(to, from);            // la propiedad "desde" termina con "hasta" como valor, y la propiedad "hasta" termina con "desde" como valor
+    }
+    return graph;
+  }
+  
+  var roadGraph = buildGraph(roads);  //console.log(roadGraph); //este es un objeto con cada .place como propiedad con valor = [] lugares que toca
+  
+  var VillageState = class VillageState {  
+    constructor(place, parcels) {         //simplemente el constructor que se llama inicialmente al final de VillageState.random
+      this.place = place;                 //y se llama al final de state.move() 
+      this.parcels = parcels;
+    }
+    move(destination) {
+      if (!roadGraph[this.place].includes(destination)) {   
+        return this;           // Comprueba si hay un camino que vaya desde el lugar actual al destino, y si no, devuelve el estado anterior ya que este no es un movimiento válido.
+      } else {
+        let parcels = this.parcels
+          .map(p => {   
+            if (p.place != this.place) return p;    //No se por que existe esta linea y funciona sin ella.
+            return { place: destination, address: p.address };  //esto asigna una nueva matriz de objetos (paquetes) con el lugar = destino (hacia donde se mueve el robot)
+          })
+          .filter(p => p.place != p.address);               // filters out objects where the place and address are equal (dropping off parcels)
+        return new VillageState(destination, parcels);       // revueltas new class (state) with updated destination (state.place) and parcels (state.parcels)
+      }
+    }
+  };
+  
+  function runRobot(state, robot, memory) {
+    for (let doblar = 0; ; doblar++) {            //itera para siempre hasta que no hay objetos en la matriz de parcelas
+      if (state.parcels.length == 0) {
+          console.log(`Echo en ${doblar} vueltas.`);
+        //return doblar;            //ESTO SE AGREGO COMO PARTE DE LA SOLUCION MEDIDA UNA SOLUCION ROBOT
+        break;
+      }
+      let action = robot(state, memory);
+      state = state.move(action.direction);   // La direccion y la memoria del robot se generan por tipo de funcion del robot, ingresadas en VillageState.move(
+      memory = action.memory;             //La memoria del robot es mailRoute o findRoute()
+      console.log(`Trasladado a ${action.direction}`);
+      //console.log(action);    //objeto con direccion y memoria, a menos que sea un robot aleatorio que no tiene memoria
+      //console.log(memory);
+      //console.log(state);   // objeto con propiedades parcelas (matriz de objetos) y lugar (cadena)
+    }
+  }
+  
+  function randomPick(array) {
+    let choice = Math.floor(Math.random() * array.length);      //esto elige un valor aleatorio dentro de una matriz
+    return array[choice];
+  }
+  
+  function randomRobot(state) {
+    return { direction: randomPick(roadGraph[state.place]) };   //elige el valor aleatorio de la propiedad state.place actual en roadGraph
+  }
+  
+  //ESTE ES EL ESTADO COMIENZO
+  VillageState.random = function(parcelCount = 5) {         //el mapa comienza con # parcelas
+    let parcels = [];
+    for (let i = 0; i < parcelCount; i++) {
+      let address = randomPick(Object.keys(roadGraph));   //establece Object.keys aleatorios de roadGraph (ubicacion) como direccion de parcela
+      let place;
+      do {
+        place = randomPick(Object.keys(roadGraph));       //establece Object.keys aleatorios de roadGraph (ubicacion) como lugar de parcela
+      } while (place == address);                         //bucles para que el lugar y la direccion no comiencen igual
+      parcels.push({ place, address });                   //agrega objetos con propiedades de lugar y direccion a parcelas de matriz
+    }
+    return new VillageState("Oficina de correos", parcels);      //robot comenzando en Oficina de correos, paquetes comenzando en ubicaciones aleatorias
+  };
+  
+  var mailRoute = [
+    "La casa de Alicia",
+    "Cabin",
+    "La casa de Alicia",
+    "La casa de Bob",
+    "Ayuntamiento",
+    "La casa de Daria",
+    "La casa de Ernie",
+    "La casa de Greta",
+    "Shop",
+    "La casa de Greta",
+    "Farm",
+    "Marketplace",
+    "Oficina de correos"
+  ];
+  
+  function routeRobot(state, memory) {
+    if (memory.length == 0) {
+      memory = mailRoute;     //resetea la memoria para volver a recorrer la ruta
+    }
+    return { direction: memory[0], memory: memory.slice(1) };  // establece la direccion al siguiente en la matriz de memoria y la elimina de la matriz
+  }
+  
+  function findRoute(graph, from, to) {   //desde el lugar actual del robot, hasta paquetes.lugar o paquetes.direccion
+    let work = [{ at: from, route: [] }];
+    for (let i = 0; i < work.length; i++) {
+      let { at, route } = work[i];
+      for (let place of graph[at]) {      //itera a traves de los valores de la propiedad de roadGraph (ubicacion actual del robot)
+        if (place == to) return route.concat(place);    //si uno de los valores coincide con el del paquete (ya sea lugar o direccion), se agrega a la ruta
+        if (!work.some(w => w.at == place)) {   //si ningun objeto en la matriz de trabajo tiene un valor .at igual al lugar
+          work.push({ at: place, route: route.concat(place) });  // agregar nuevo objeto a la matriz de trabajo
+        }
+      } //console.log(work);
+    } 
+  }
+  
+  function goalOrientedRobot({ place, parcels }, route) {   //en la funcion runRobot, robot (estado, memoria), {lugar, parcelas} = estado, ruta = memoria
+    if (route.length == 0) {
+      let parcel = parcels[0];    //Comenzando con el primer robot de paqueteria.
+      if (parcel.place != place) {      //si el paquete no fue recogido en el lugar actual
+        route = findRoute(roadGraph, place, parcel.place);    //ejecute findRoute con to = lugar actual del paquete
+      } else {
+        route = findRoute(roadGraph, place, parcel.address);  // si el lugar actual del paquete es el lugar del robot, busque la ruta con la direccion del paquete (a donde se dirige)
+      }
+    } //console.log(route);
+    return { direction: route[0], memory: route.slice(1) }; //direction = first value in roadGraph's from(robot's current location), memory = removes first item from the array. cuando la matriz esta vacia, se ejecuta el codigo anterior.
+  }
+  
+//CORRE ANIMACION
+//runRobotAnimation(VillageState.random(), randomRobot);
+//runRobotAnimation(VillageState.random(), routeRobot, []);
+runRobotAnimation(VillageState.random(), goalOrientedRobot, []);  
+
+//FUNCIONA EN CONSOLA
+  //runRobot(VillageState.random(), randomRobot); 
+  //runRobot(VillageState.random(), routeRobot, []);
+  runRobot(VillageState.random(), goalOrientedRobot, []); 
+  
+  //console.log(roadGraph)
+  
+
+  
+    </script>
+</body>
+</html>

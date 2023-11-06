@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #cuerpo {
+            width: 100px;
+            height: 150px;
+            background-color: rgb(199, 147, 147);
+            position: relative;
+            border-radius: 10px 10px 0 0;
+        }
+
+        #cabeza {
+            width: 80px;
+            height: 80px;
+            background-color: #8e8b94;
+            position: absolute;
+            top: -80px;
+            left: 10px;
+            border-radius: 50%;
+        }
+
+        #ojos {
+            width: 15px;
+            height: 15px;
+            background-color: rgb(240, 202, 131);
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            border-radius: 50%;
+        }
+
+        #brazo-izquierdo, #brazo-derecho {
+            width: 20px;
+            height: 100px;
+            background-color: rgb(163, 152, 152);
+            position: absolute;
+            top: 20px;
+            border-radius: 10px;
+        }
+
+        #brazo-izquierdo {
+            left: -20px;
+        }
+
+        #brazo-derecho {
+            right: -20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="cuerpo">
+        <div id="cabeza">
+            <div id="ojos"></div>
+        </div>
+        <div id="brazo-izquierdo"></div>
+        <div id="brazo-derecho"></div>
+    </div>
+</body>
+</html>
+

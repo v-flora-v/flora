@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Separar Vocales y Consonantes</title>
+</head>
+<body>
+    <h1>Separacion de los Vocales y Consonantes</h1>
+    <form id="myForm">
+        <label for="inputText">Introduce una palabra:</label>
+        <input type="text" id="inputText" name="inputText" required>
+        <button type="button" onclick="separarVocalesConsonantes()">Separar</button>
+    </form>
+    <p>Vocales: <span id="vocales"></span></p>
+    <p>Consonantes: <span id="consonantes"></span></p>
+
+    <script>
+        function separarVocalesConsonantes() {
+            var inputText = document.getElementById("inputText").value;
+            var vocales = separarVocales(inputText);
+            var consonantes = separarConsonantes(inputText);
+
+            document.getElementById("vocales").textContent = vocales;
+            document.getElementById("consonantes").textContent = consonantes;
+        }
+
+        function separarVocales(texto) {
+            var vowels = "";
+            texto = texto.toLowerCase();
+            for (var i = 0; i < texto.length; i++) {
+                var character = texto.charAt(i);
+                if (/[aeiou]/.test(character)) {
+                    vowels += character;
+                }
+            }
+            return vowels;
+        }
+
+        function separarConsonantes(texto) {
+            var consonants = "";
+            texto = texto.toLowerCase();
+            for (var i = 0; i < texto.length; i++) {
+                var character = texto.charAt(i);
+                if (/[b-df-hj-np-tv-z]/.test(character)) {
+                    consonants += character;
+                }
+            }
+            return consonants;
+        }
+    </script>
+</body>
+</html>

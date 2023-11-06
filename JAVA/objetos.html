@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>autos</title>
+</head>
+<body>
+    <script>
+    
+var autos = [];
+
+
+for (var i = 0; i < 5; i++) {
+    var marca = prompt("Ingresa la marca del auto " + (i + 1) + ":");
+    var color = prompt("Ingresa el color del auto " + (i + 1) + ":");
+    var anio = prompt("Ingresa el año del auto " + (i + 1) + ":");
+
+    
+
+
+    var auto = {
+        marca: marca,
+        color: color,
+        anio: anio
+    };
+
+    autos.push(auto);
+}
+
+
+for (var i = 0; i < autos.length; i++) {
+    var auto = autos[i];
+    
+   
+console.log("Auto " + (i + 1) + ":");
+    console.log("Marca: " + auto.marca);
+    console.log("Color: " + auto.color);
+    console.log("Año: " + auto.anio);
+    console.log("--------");
+
+
+}
+
+    </script>
+</body>
+</html>

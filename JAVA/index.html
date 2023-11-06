@@ -1,0 +1,130 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>document</title>
+
+    </head>
+    <body>
+       <h1>1. Realizar las operaciones básicas en un script con variables ya
+        asignadas.</h1>
+
+        <h1>SUMA</h1>
+         <p> el resultado de a y b es:</p>
+         <p id= "suma"> </p>
+
+         <h1>RESTA</h1>
+         <p>el resultado de a y b es:</p>
+         <p id= "resta"> </p>
+
+         <h1>MULTIPLICACION</h1>
+         <p> el resultado de a y b es:</p>
+         <p id= "multiplicacion"> </p>
+
+         <h1>DIVISION</h1>
+         <p> el resultado de a y b es:</p>
+         <p id= "division"> </p>
+
+         <script>
+            var a = 20;
+            var b = 10;
+            document.getElementById("suma").innerHTML = a + b;
+            document.getElementById("resta").innerHTML = a-b;
+            document.getElementById("multiplicacion").innerHTML = a*b;
+            document.getElementById("division").innerHTML = a/b;
+
+         </script>
+
+
+        <h1>2. Haz un script que te calcule el precio total que se pagara por la
+            compra. Entendiendo que el precio del producto es S/. 420.00 y su
+            igv es de 25%.</h1>
+
+            <script>
+                var precio = 420;
+                var igv = precio * .25;
+                document.write("precio total: " , igv);
+            </script>
+
+        <h1>3. Si el lado de un cuadrado es 24, calcule el área y el perímetro del
+                cuadrado.</h1>
+
+            <script>
+                var lado = 24;
+                var area = lado * lado;
+                var perimetro = lado+lado+lado+lado;
+
+                document.write("area", area);
+                document.write("perimetro", perimetro);
+            </script>
+
+        <h1>4.Saludo personalizado</h1>
+               <p>Por favor, introduzca su nombre:</p>
+               <input type="text" id="nombre">
+               <button onclick="saludar()">Saludar</button>
+            <script>
+                function saludar() {
+                var nombre = document.getElementById("nombre").value;
+                alert("Como estas mi querido " + nombre);
+              }
+            </script>
+            
+        <h1>5.Pedir al usuario que teclee tres numeros enteros y el script
+                mostrara como resultado el valor medio de los tres.</h1>
+                <script>
+                var num1 = parseInt(prompt("Teclea un numero entero"));
+                var num2 = parseInt(prompt("Teclea un numero entero"));
+                var num3 = parseInt(prompt("Teclea un numero entero"));
+                var media = (num1 + num2 + num3)/3;
+                document.write("La media de los numeros es ",media);
+            </script>
+            
+        <h1>6. Convertir a segundos una medida de tiempo dada en horas y
+                minutos (4 horas y 20 minutos)</h1>
+                <script>
+                    var hora = 4;
+                    var min = 20;
+                    var seg = 4*60*60+20*60;
+
+                    document.write(" total de segundos ","   ", seg)
+                </script>
+        <h1>7. Una tortilla de espinacas lleva 200 gramos de espinacas por
+                    persona. Por cada kilo de espinacas se necesitan 5 huevos y 300
+                    gramos de queso. Escribe un script que dado el número de
+                    comensales calcule las cantidades de ingredientes
+                    necesarias(PARA 5 COMENSALES)</h1>
+    
+                    <script>
+                      var comensales = parseInt(prompt("ingrese la cantidad de comensales"));
+                      var espinacas = comensales*200;
+                      var huevos = comensales*200/200;
+                      var queso = comensales*60;
+    
+                      document.write( "1.- cantidad de espinacas","   ",espinacas,"   ","gramos"+"<br>");
+                      document.write( "2.- cantidad de huevos","   ",huevos,"   ","unidad"+"<br>");
+                      document.write( "3.- cantidad de queso","   ",queso,"   ","gramos"+"<br>");
+                    </script>
+    
+                <h1>8. Escribir un programa que intercambie el valor de dos variables. Al
+                    final la primera variable debe tener el valor de la segunda y la
+                    segunda el valor de la primera.
+                    Es decir si: var n1 = 2
+                    
+                    var n2 = 4; al final debe ser
+                    var n1 = 4
+                    var n2 = 2;</h1>
+    
+                    <script>
+                        var n1 =2;
+                        var n2 =4;
+                        
+                        a=n1;
+                        n1=n2;
+                        n2=a;
+    
+                        document.write( "intercambio del primer valor","   ",n1,"<br>");
+                        document.write( "intercambio del segundo valor","   ",n2 );
+                    </script>
+    
+        </body>
+    </html>

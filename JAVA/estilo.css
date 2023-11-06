@@ -1,0 +1,84 @@
+
+
+       
+
+        .robot {
+            width: 100px;
+            height: 200px;
+            position: relative;
+            background-color: silver;
+        }
+        .head {
+            width: 60px;
+            height: 60px;
+            background-color: gray;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        .eye {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .eye.left {
+            top: 20px;
+            left: 30px;
+        }
+        .eye.right {
+            top: 20px;
+            right: 30px;
+        }
+        .body {
+            width: 80px;
+            height: 100px;
+            background-color: silver;
+            position: absolute;
+            top: 80px;
+            left: 10px;
+        }
+        .arm {
+            width: 20px;
+            height: 100px;
+            background-color: gray;
+            position: absolute;
+        }
+        .arm.left {
+            top: 10px;
+            left: 0;
+        }
+        .arm.right {
+            top: 10px;
+            right: 0;
+        }
+        .leg {
+            width: 30px;
+            height: 100px;
+            background-color: gray;
+            position: absolute;
+        }
+        .leg.left {
+            top: 100px;
+            left: 10px;
+        }
+        .leg.right {
+            top: 100px;
+            right: 10px;
+        }
+        .foot {
+            width: 40px;
+            height: 20px;
+            background-color: gray;
+            position: absolute;
+        }
+        .foot.left {
+            top: 200px;
+            left: 0;
+        }
+        .foot.right {
+            top: 200px;
+            right: 0;
+        }

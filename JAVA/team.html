@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>work Team</title>
+</head>
+<body>
+    <script>
+        var workTeam = [
+            { id: 1, nombre: "mercedes alca", email: "mercedes@example.com", cargo: "developer", sueldo: 5000 },
+            { id: 2, nombre: "Cristian Yoel", email: "CristianYoel@example.com", cargo: "designer", sueldo: 4500 },
+            { id: 3, nombre: "veronica", email: "veronica@example.com", cargo: "developer", sueldo: 4000 },
+            { id: 4, nombre: "saul", email: "saul@example.com", cargo: "developer", sueldo: 5500 },
+            { id: 5, nombre: "kewin", email: "kewin@example.com", cargo: "designer", sueldo: 4500 }
+        ];
+
+        function existeUsuario(nombre) {
+            return workTeam.some(function(usuario) {
+                return usuario.nombre.toLowerCase() === nombre.toLowerCase();
+            });
+        }
+
+        var developers = workTeam.filter(function(usuario) {
+            return usuario.cargo.toLowerCase() === "developer";
+        });
+
+        console.log("Existe usuario 'mercedesn alca':", existeUsuario("mercedes alex"));
+        console.log("Existe usuario 'liseth':", existeUsuario("liseth"));
+        console.log("Desarrolladores:", developers);
+        
+        workTeam.forEach(function(usuario){
+        console.log(usuario["nombre"] + " (" + usuario["email"] + ")" + " (" +usuario["cargo"]+ ")" + " (" + usuario["sueldo"]+ ")");
+})
+
+    </script>
+</body>
+</html>

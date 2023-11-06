@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         //metodos para el recorrido de arrays
+         var objetos=[
+            {nombre:"bici", precio: 3000},
+            {nombre:"TV", precio: 2500},
+            {nombre:"Libro", precio:320},
+            {nombre:"celular", precio:10000},
+            {nombre:"Laptop", precio:2000},
+            {nombre:"Teclado", precio:500},
+            {nombre:"Audifonos", precio:200},
+         ]
+           //METODO FIND
+        var encuentraObjeto =objetos.find(function(objeto){
+            return objeto.nombre ==="PANTALLA"
+        })
+        console.log(encuentraObjeto);
+
+    </script>
+</body>
+</html>

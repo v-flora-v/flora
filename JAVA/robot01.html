@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #87CEEB; /* Color de fondo azul claro para representar el cielo */
+      margin: 0;
+      overflow: hidden; /* Para evitar barras de desplazamiento */
+    }
+
+    #casita {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 150px;
+      background-color: #8B4513; /* Color de la casita (marrón) */
+      border: 5px solid #FFD700; /* Color del borde (amarillo) */
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+
+    #techo {
+      width: 0;
+      height: 0;
+      border-left: 75px solid transparent;
+      border-right: 75px solid transparent;
+      border-bottom: 75px solid #8B4513; /* Color del techo (marrón) */
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #robot {
+      position: absolute;
+      bottom: 150px; /* La altura de la casita */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background-color: #A9A9A9; /* Color del robot (gris) */
+      border-radius: 50%;
+    }
+
+    #brazo {
+      width: 20px;
+      height: 80px;
+      background-color: #A9A9A9; /* Color del brazo (gris) */
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #ojo {
+      width: 20px;
+      height: 20px;
+      background-color: #000; /* Color del ojo (negro) */
+      border-radius: 50%;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #camino {
+      width: 100%;
+      height: 20px;
+      background-color: #CD853F; /* Color del camino (marrón claro) */
+      position: absolute;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="casita">
+    <div id="techo"></div>
+  </div>
+
+  <div id="robot">
+    <div id="brazo"></div>
+    <div id="ojo"></div>
+  </div>
+
+  <div id="camino"></div>
+</body>
+</html>
+
+
+
+
+

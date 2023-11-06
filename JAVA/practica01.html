@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calificaciones</title>
+</head>
+<body>
+    <h1>Calificaciones</h1>
+    <label for="nota">Ingresa tu nota:</label>
+    <input type="number" id="nota" min="0" max="20">
+    <button onclick="calificarNota()">Calificar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function calificarNota() {
+            var nota = parseInt(document.getElementById("nota").value);
+            var resultado = "";
+
+            if (nota < 13) {
+                resultado = "Desaprobado";
+            } else if (nota >= 14 && nota <= 15) {
+                resultado = "Aprobado";
+            } else if (nota >= 16 && nota <= 17  && nota <= 18) {
+                resultado = "Sobresaliente";
+            } else {
+                if (nota >=19 && nota <= 20)
+                resultado = "Excelente";
+            }
+
+            document.getElementById("resultado").innerText = "La calificacion es: " + resultado;
+        }
+    </script>
+</body>
+</html>
